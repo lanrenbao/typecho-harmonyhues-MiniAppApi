@@ -1,0 +1,8 @@
+{
+  "name": "typecho-wx-miniprogram",
+  "version": "2.0.0",
+  "description": "Typecho blog WeChat mini program with WorkBuddy cloud service",
+  "dependencies": {
+    "@tencent-ai/workbuddy-cloud-sdk": "^0.1.4-dev.71e5d1e.202611161655"
+  }
+}

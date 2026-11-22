@@ -1,0 +1,292 @@
+.login-wrap {
+  padding: 48rpx 40rpx;
+}
+
+.login-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 44rpx 36rpx;
+  box-shadow: 0 8rpx 40rpx rgba(18, 16, 14, 0.06);
+}
+
+/* 站点 logo（替代原来的「書釘皇」文字徽标） */
+.login-logo {
+  display: block;
+  width: 96rpx;
+  height: 96rpx;
+  margin-bottom: 8rpx;
+}
+
+.login-title {
+  margin-top: 26rpx;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #22201E;
+}
+
+.login-sub {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  line-height: 1.6;
+  color: #9BA1A8;
+}
+
+.field {
+  margin-top: 32rpx;
+}
+
+.field-label {
+  margin-bottom: 12rpx;
+  font-size: 24rpx;
+  color: #6E747B;
+  letter-spacing: 2rpx;
+}
+
+.field-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 16rpx;
+}
+
+.code-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.send-wrap {
+  flex: none;
+}
+
+.ipt {
+  box-sizing: border-box;
+  width: 100%;
+  height: 88rpx;
+  padding: 0 24rpx;
+  background: #FAF7F3;
+  border: 1rpx solid #EAE4DB;
+  border-radius: 14rpx;
+  font-size: 28rpx;
+  line-height: 88rpx;
+  color: #22201E;
+}
+
+/* placeholder 样式：placeholder-class + placeholder-style 双保险 */
+.ipt-ph {
+  color: #A9AFB6;
+  font-size: 26rpx;
+  letter-spacing: 1rpx;
+}
+
+.ipt-code {
+  width: 100%;
+}
+
+.send-btn {
+  flex: none;
+  margin: 0;
+  padding: 0 22rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-radius: 14rpx;
+  background: #B54A34;
+  color: #fff;
+  font-size: 23rpx;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.send-btn.is-disabled {
+  opacity: 0.55;
+}
+
+.login-error {
+  margin-top: 20rpx;
+  font-size: 24rpx;
+  color: #B23A30;
+}
+
+.login-btn {
+  margin-top: 36rpx;
+  background: #B54A34;
+  color: #fff;
+  font-size: 30rpx;
+  border-radius: 16rpx;
+}
+
+.login-btn[disabled] {
+  opacity: 0.6;
+  color: #fff;
+}
+
+.login-note {
+  margin-top: 14rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #B9BEC4;
+}
+
+.me-head {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 36rpx 32rpx 28rpx;
+}
+
+.me-avatar {
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 50%;
+  background: #B54A34;
+  color: #fff;
+  font-size: 38rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.me-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.me-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #22201E;
+}
+
+.me-mail {
+  margin-top: 4rpx;
+  font-size: 23rpx;
+  color: #9BA1A8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.me-logout {
+  flex: none;
+  padding: 10rpx 22rpx;
+  border: 1rpx solid #E5E2DD;
+  border-radius: 999rpx;
+  font-size: 23rpx;
+  color: #9BA1A8;
+}
+
+.seg {
+  display: flex;
+  margin: 0 32rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.seg-item {
+  flex: 1;
+  padding: 20rpx 0;
+  text-align: center;
+  font-size: 28rpx;
+  color: #6E747B;
+  position: relative;
+}
+
+.seg-item.is-on {
+  color: #B54A34;
+  font-weight: 600;
+}
+
+.seg-item.is-on::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 10rpx;
+  width: 40rpx;
+  height: 6rpx;
+  border-radius: 3rpx;
+  background: #B54A34;
+  transform: translateX(-50%);
+}
+
+.seg-num {
+  font-size: 22rpx;
+  color: #B9BEC4;
+}
+
+.list-wrap {
+  margin-top: 20rpx;
+  padding: 0 32rpx 40rpx;
+}
+
+.list-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12rpx;
+}
+
+.clear-btn {
+  font-size: 23rpx;
+  color: #9BA1A8;
+}
+
+.clear-btn.is-disabled {
+  opacity: 0.5;
+}
+
+.list-error {
+  padding: 40rpx 0;
+  text-align: center;
+  font-size: 25rpx;
+  color: #B23A30;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 22rpx;
+  margin-bottom: 16rpx;
+  background: #fff;
+  border-radius: 18rpx;
+}
+
+.row-thumb {
+  flex: none;
+  width: 110rpx;
+  height: 82rpx;
+  border-radius: 12rpx;
+  background: #F0EDE8;
+}
+
+.row-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.row-title {
+  font-size: 28rpx;
+  line-height: 1.45;
+  color: #22201E;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.row-meta {
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: #B9BEC4;
+}
+
+.row-del {
+  flex: none;
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  background: #F7F5F2;
+  color: #9BA1A8;
+  font-size: 22rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

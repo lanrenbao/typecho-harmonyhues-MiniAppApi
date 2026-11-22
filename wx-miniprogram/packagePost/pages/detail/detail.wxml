@@ -1,0 +1,185 @@
+<!-- 阅读进度 -->
+<view class="progress">
+  <view class="progress-bar" style="{{barStyle}}"></view>
+</view>
+
+<state-view wx:if="{{loading}}" type="skeleton" count="{{4}}" />
+<state-view wx:elif="{{error}}" type="error" text="{{error}}" bind:retry="load" />
+
+<block wx:else>
+  <view id="article" class="article">
+    <!-- 标题区 -->
+    <view class="a-head">
+      <view class="a-title serif">{{post.title}}</view>
+      <view class="a-meta">
+        <text>{{post.createdText}}</text>
+        <text class="a-sep">·</text>
+        <text>{{stats.chars}} 字</text>
+        <text class="a-sep">·</text>
+        <text>约 {{stats.minutes}} 分钟</text>
+      </view>
+      <view class="a-cats" wx:if="{{post.categories.length}}">
+        <text class="a-cat" wx:for="{{post.categories}}" wx:key="mid">{{item.name}}</text>
+      </view>
+    </view>
+
+    <!-- 正文：按块渲染 -->
+    <view class="a-body">
+      <block wx:for="{{blocks}}" wx:key="key" wx:for-item="b">
+
+        <rich-text
+          wx:if="{{b.type === 'p'}}"
+          class="md-p"
+          nodes="{{b.html}}"
+        ></rich-text>
+
+        <view wx:elif="{{b.type === 'h'}}" class="md-h md-h-{{b.level}}">
+          <rich-text nodes="{{b.html}}"></rich-text>
+        </view>
+
+        <image
+          wx:elif="{{b.type === 'img'}}"
+          class="md-img"
+          src="{{b.src}}"
+          mode="widthFix"
+          data-src="{{b.src}}"
+          bindtap="onPreview"
+          lazy-load
+        />
+
+        <scroll-view wx:elif="{{b.type === 'code'}}" class="md-code" scroll-x>
+          <text class="md-code-t" selectable>{{b.code}}</text>
+        </scroll-view>
+
+        <view wx:elif="{{b.type === 'quote'}}" class="md-quote">
+          <rich-text nodes="{{b.html}}"></rich-text>
+        </view>
+
+        <view wx:elif="{{b.type === 'list'}}" class="md-list">
+          <view
+            class="md-li"
+            wx:for="{{b.items}}"
+            wx:key="index"
+            wx:for-item="li"
+            wx:for-index="liIndex"
+          >
+            <text class="md-li-mark">{{b.ordered ? (liIndex + 1) + '.' : '·'}}</text>
+            <rich-text class="md-li-t" nodes="{{li.html}}"></rich-text>
+          </view>
+        </view>
+
+        <scroll-view wx:elif="{{b.type === 'table'}}" class="md-table" scroll-x>
+          <view class="md-tr md-tr-head">
+            <view class="md-td" wx:for="{{b.head}}" wx:key="index" style="text-align: {{item.align}}">
+              <rich-text nodes="{{item.html}}"></rich-text>
+            </view>
+          </view>
+          <view class="md-tr" wx:for="{{b.rows}}" wx:key="index" wx:for-item="row">
+            <view class="md-td" wx:for="{{row}}" wx:key="index" style="text-align: {{item.align}}">
+              <rich-text nodes="{{item.html}}"></rich-text>
+            </view>
+          </view>
+        </scroll-view>
+
+        <view wx:elif="{{b.type === 'hr'}}" class="md-hr"></view>
+
+      </block>
+    </view>
+
+    <!-- 文末 -->
+    <view class="a-foot">
+      <view class="a-foot-line"></view>
+      <view class="a-foot-text">—— 完 ——</view>
+      <view class="a-foot-meta">写于 {{post.createdText}} · 共 {{post.commentsNum}} 条评论</view>
+    </view>
+
+    <!-- 标签 -->
+    <view class="a-tags" wx:if="{{post.tags.length}}">
+      <text class="a-tag" wx:for="{{post.tags}}" wx:key="mid"># {{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 悬浮操作 -->
+  <view class="fab" wx:if="{{showTop}}" bindtap="onBackTop">
+    <text class="fab-icon">↑</text>
+  </view>
+
+  <!-- 底部四个功能区：收藏 / 海报 / 赞赏 / 分享 -->
+  <view class="dock">
+    <view class="dock-item" hover-class="dock-hover" bindtap="onToggleFav">
+      <view class="dock-circle">
+        <view class="dock-icon dock-icon-fav {{faved ? 'is-on' : ''}}"></view>
+      </view>
+      <text class="dock-label {{faved ? 'is-on' : ''}}">{{faved ? '已收藏' : '收藏'}}</text>
+    </view>
+
+    <view class="dock-item" hover-class="dock-hover" bindtap="onMakePoster">
+      <view class="dock-circle">
+        <view class="dock-icon dock-icon-poster"></view>
+      </view>
+      <text class="dock-label">海报</text>
+    </view>
+
+    <view class="dock-item" hover-class="dock-hover" wx:if="{{rewardOn}}" bindtap="onOpenReward">
+      <view class="dock-circle">
+        <view class="dock-icon dock-icon-reward"></view>
+      </view>
+      <text class="dock-label">赞赏</text>
+    </view>
+
+    <view class="dock-item" hover-class="dock-hover" bindtap="onOpenShare">
+      <view class="dock-circle">
+        <view class="dock-icon dock-icon-share"></view>
+      </view>
+      <text class="dock-label">分享</text>
+    </view>
+  </view>
+
+  <!-- 赞赏码弹窗 -->
+  <view class="sheet-mask" wx:if="{{rewardShow}}" bindtap="onCloseReward">
+    <view class="sheet-card sheet-reward" catchtap="noop">
+      <view class="sheet-title">赞赏支持</view>
+      <view class="sheet-sub">如果这篇文章对你有帮助</view>
+      <image class="reward-img" src="{{rewardImage}}" mode="widthFix"
+             show-menu-by-longpress bindtap="onPreviewReward" />
+      <view class="sheet-tip">长按识别 · 感谢你的支持</view>
+      <view class="sheet-btn sheet-btn-ghost sheet-btn-block" bindtap="onCloseReward">关闭</view>
+    </view>
+  </view>
+
+  <!-- 分享弹窗 -->
+  <view class="sheet-mask" wx:if="{{shareShow}}" bindtap="onCloseShare">
+    <view class="sheet-card" catchtap="noop">
+      <view class="sheet-title">分享这篇文章</view>
+      <view class="sheet-sub">复制链接发给朋友，或用浏览器打开</view>
+      <view class="share-url" bindtap="onCopyLink">{{shareUrl}}</view>
+      <view class="share-acts">
+        <view class="sheet-btn sheet-btn-solid" bindtap="onCopyLink">复制链接</view>
+        <button class="sheet-btn sheet-btn-ghost" open-type="share">转发给朋友</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 海报预览弹层 -->
+  <view class="poster-mask" wx:if="{{posterPath}}" bindtap="onClosePoster">
+    <view class="poster-panel" catchtap="noop">
+      <view class="poster-holder" bindtap="onPreviewPoster">
+        <image class="poster-img" src="{{posterPath}}" mode="aspectFit" />
+      </view>
+      <view class="poster-actions">
+        <view class="poster-act" hover-class="poster-act-hover" bindtap="onPosterSave">
+          <view class="poster-act-circle poster-act-save">
+            <text class="poster-act-glyph">↓</text>
+          </view>
+          <text class="poster-act-label">保存</text>
+        </view>
+        <view class="poster-act" hover-class="poster-act-hover" bindtap="onClosePoster">
+          <view class="poster-act-circle">
+            <text class="poster-act-glyph poster-act-x">×</text>
+          </view>
+          <text class="poster-act-label">关闭</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</block>

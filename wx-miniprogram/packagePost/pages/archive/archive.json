@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "state-view": "/components/state-view/state-view"
+  },
+  "navigationBarTitleText": "归档",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}

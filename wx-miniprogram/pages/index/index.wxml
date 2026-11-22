@@ -1,0 +1,67 @@
+<!-- 站点信息 -->
+<view class="hero">
+  <view class="hero-title serif">{{site.title || '我的博客'}}</view>
+  <view class="hero-desc" wx:if="{{site.description}}">{{site.description}}</view>
+  <view class="hero-count" wx:if="{{totalText}}">已收录 {{totalText}} 篇</view>
+</view>
+
+<!-- 轮播幻灯片（插件开关开启且有内容时显示） -->
+<swiper
+  wx:if="{{slider.length}}"
+  class="slider"
+  autoplay="{{slider.length > 1}}"
+  interval="4800"
+  duration="420"
+  circular="{{slider.length > 1}}"
+  indicator-dots="{{slider.length > 1}}"
+  indicator-color="rgba(255,255,255,0.42)"
+  indicator-active-color="#FFFFFF"
+>
+  <swiper-item wx:for="{{slider}}" wx:key="index" data-index="{{index}}" bindtap="onSliderTap">
+    <view class="slide">
+      <image class="slide-img" src="{{item.image}}" mode="aspectFill" lazy-load />
+      <view class="slide-mask"></view>
+      <view class="slide-label" wx:if="{{item.label}}">{{item.label}}</view>
+      <view class="slide-body">
+        <view class="slide-title" wx:if="{{item.title}}">{{item.title}}</view>
+        <view class="slide-desc" wx:if="{{item.desc}}">{{item.desc}}</view>
+      </view>
+    </view>
+  </swiper-item>
+</swiper>
+
+<!-- 搜索 -->
+<view class="search-wrap">
+  <view class="search">
+    <text class="search-icon">⌕</text>
+    <input
+      class="search-input"
+      value="{{q}}"
+      placeholder="搜索文章标题"
+      placeholder-class="search-ph"
+      confirm-type="search"
+      bindconfirm="onSearch"
+    />
+    <text class="search-clear" wx:if="{{q}}" catchtap="onClearSearch">清空</text>
+  </view>
+</view>
+
+<!-- 状态 -->
+<state-view wx:if="{{!firstLoaded && loading}}" type="skeleton" count="{{3}}" />
+<state-view wx:elif="{{error && !posts.length}}" type="error" text="{{error}}" bind:retry="reload" />
+<state-view wx:elif="{{firstLoaded && !posts.length}}" type="empty" text="{{q ? '没有找到相关文章，换个词试试' : '这里还没有文章'}}" />
+
+<!-- 列表 -->
+<block wx:else>
+  <view class="list">
+    <post-card
+      wx:for="{{posts}}"
+      wx:key="cid"
+      item="{{item}}"
+      bind:tapcard="goDetail"
+    />
+  </view>
+
+  <view class="foot-tip" wx:if="{{loading}}">正在加载…</view>
+  <view class="foot-tip" wx:elif="{{!hasMore && posts.length}}">— 到底了，共 {{totalText}} 篇 —</view>
+</block>

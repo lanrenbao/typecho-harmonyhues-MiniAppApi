@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "state-view": "/components/state-view/state-view"
+  },
+  "navigationBarTitleText": "文章"
+}

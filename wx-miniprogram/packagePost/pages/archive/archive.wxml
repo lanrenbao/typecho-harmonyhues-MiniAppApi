@@ -1,0 +1,52 @@
+<!-- 归档封面（引用网页端 /archives.html 的封面图） -->
+<view class="cover" wx:if="{{cover}}">
+  <image class="cover-img" src="{{cover}}" mode="aspectFill" lazy-load />
+  <view class="cover-mask"></view>
+  <view class="cover-name">归档</view>
+</view>
+
+<view class="head" wx:else>
+  <view class="head-title serif">归档</view>
+</view>
+
+<state-view wx:if="{{loading && !statItems.length}}" type="skeleton" count="{{2}}" />
+<state-view wx:elif="{{error}}" type="error" text="{{error}}" bind:retry="load" />
+
+<block wx:else>
+  <!-- 站点统计 -->
+  <view class="stats" wx:if="{{statItems.length}}">
+    <view class="st" wx:for="{{statItems}}" wx:key="key">
+      <view class="st-label">
+        <text class="st-char" wx:for="{{item.chars}}" wx:for-item="ch" wx:key="*this">{{ch}}</text>
+      </view>
+      <view class="st-num">{{item.value}}<text class="st-unit">{{item.unit}}</text></view>
+    </view>
+  </view>
+
+  <!-- 按月归档 -->
+  <block wx:if="{{groups.length}}">
+    <view class="group" wx:for="{{groups}}" wx:key="key">
+      <view class="group-head">
+        <text class="group-label serif">{{item.label}}</text>
+        <text class="group-count">{{item.count}} 篇</text>
+      </view>
+      <view class="group-body">
+        <view
+          class="g-item"
+          wx:for="{{item.posts}}"
+          wx:for-item="p"
+          wx:key="cid"
+          data-cid="{{p.cid}}"
+          bindtap="goDetail"
+          hover-class="g-item-hover"
+        >
+          <text class="g-date">{{p.dateText}}</text>
+          <text class="g-title">{{p.title}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="foot-tip">共 {{total}} 篇文章</view>
+  </block>
+
+  <state-view wx:else type="empty" text="{{stats ? '还没有文章' : '归档功能未开启'}}" />
+</block>

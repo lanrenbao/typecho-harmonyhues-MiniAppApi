@@ -1,0 +1,22 @@
+<!-- 骨架屏 -->
+<view class="sk-wrap" wx:if="{{type === 'skeleton'}}">
+  <view class="sk" wx:for="{{rows}}" wx:key="*this">
+    <view class="sk-line sk-title"></view>
+    <view class="sk-line sk-a"></view>
+    <view class="sk-line sk-b"></view>
+    <view class="sk-line sk-c"></view>
+  </view>
+</view>
+
+<!-- 错误 -->
+<view class="sv" wx:elif="{{type === 'error'}}">
+  <view class="sv-mark">!</view>
+  <view class="sv-text">{{text || '加载失败了'}}</view>
+  <view class="sv-btn" hover-class="sv-btn-hover" bindtap="onRetry">重新加载</view>
+</view>
+
+<!-- 空 -->
+<view class="sv" wx:else>
+  <view class="sv-mark sv-mark-empty">·</view>
+  <view class="sv-text">{{text || '这里还没有内容'}}</view>
+</view>

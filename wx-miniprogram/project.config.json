@@ -1,0 +1,39 @@
+{
+  "appid": "xxxxxxxx",
+  "_appidNote": "填写自己小程序里面的 AppID（mp.weixin.qq.com → 开发 → 开发设置 → AppID）",
+  "compileType": "miniprogram",
+  "projectname": "typecho-wx-miniprogram",
+  "libVersion": "3.4.10",
+  "setting": {
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "urlCheck": false,
+    "nodeModules": true,
+    "autoAudits": false,
+    "uploadWithSourceMap": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "enhance": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false
+  },
+  "condition": {},
+  "simulatorPluginLibVersion": {},
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "editorSetting": {}
+}

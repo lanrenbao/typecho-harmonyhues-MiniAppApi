@@ -1,0 +1,19 @@
+<view class="pc" hover-class="pc-hover" hover-stay-time="60" bindtap="onTap">
+  <view class="pc-body">
+    <view class="pc-title">{{item.title}}</view>
+    <view class="pc-excerpt" wx:if="{{item.excerptText}}">{{item.excerptText}}</view>
+    <view class="pc-meta">
+      <text>{{item.timeText}}</text>
+      <text class="pc-dot">·</text>
+      <text wx:if="{{item.commentsNum > 0}}">{{item.commentsNum}} 条评论</text>
+      <text wx:else>暂无评论</text>
+    </view>
+  </view>
+  <image
+    wx:if="{{item.thumb}}"
+    class="pc-thumb"
+    src="{{item.thumb}}"
+    mode="aspectFill"
+    lazy-load
+  />
+</view>

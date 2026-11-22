@@ -1,0 +1,354 @@
+.head {
+  padding: 50rpx 40rpx 36rpx;
+}
+
+.head-title {
+  font-size: 50rpx;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #1F2328;
+  letter-spacing: 1rpx;
+}
+
+.head-desc {
+  margin-top: 16rpx;
+  font-size: 26rpx;
+  line-height: 1.75;
+  color: #6B7278;
+}
+
+
+/* ---------- 一言卡片（替代统计卡，插件开关控制） ---------- */
+.hito {
+  padding: 0;
+  margin-bottom: 22rpx;
+  overflow: hidden;
+}
+
+.hito-head {
+  padding: 30rpx 32rpx 20rpx;
+}
+
+.hito-greet {
+  font-size: 29rpx;
+  color: #3A4048;
+  letter-spacing: 1rpx;
+}
+
+.hito-date {
+  display: flex;
+  align-items: baseline;
+  margin-top: 8rpx;
+}
+
+.hito-day {
+  font-size: 76rpx;
+  line-height: 1.05;
+  font-weight: 600;
+  color: #1F2328;
+  font-family: "Songti SC", "SimSun", Georgia, serif;
+}
+
+.hito-mon {
+  margin-left: 4rpx;
+  font-size: 27rpx;
+  color: #9BA1A8;
+}
+
+.hito-img {
+  display: block;
+  width: 100%;
+  height: 340rpx;
+  background-color: #EDE8E0;
+}
+
+.hito-body {
+  padding: 26rpx 32rpx 28rpx;
+}
+
+.hito-quote {
+  font-size: 29rpx;
+  line-height: 1.8;
+  color: #3A4048;
+  letter-spacing: 1rpx;
+}
+
+.hito-from {
+  margin-top: 12rpx;
+  font-size: 25rpx;
+  line-height: 1.6;
+  color: #8C9298;
+  text-align: right;
+}
+
+.hito-tip {
+  margin-top: 18rpx;
+  font-size: 21rpx;
+  color: #C6C0B6;
+  text-align: center;
+  letter-spacing: 2rpx;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  padding: 34rpx 0;
+  margin-bottom: 22rpx;
+}
+
+.stat {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-num {
+  font-size: 46rpx;
+  font-weight: 600;
+  color: #B54A34;
+  font-family: "Songti SC", "SimSun", Georgia, serif;
+  line-height: 1.2;
+}
+
+.stat-label {
+  margin-top: 8rpx;
+  font-size: 23rpx;
+  color: #9BA1A8;
+  letter-spacing: 1rpx;
+}
+
+.stat-line {
+  width: 1px;
+  height: 56rpx;
+  background-color: #EAE4DB;
+}
+
+.block {
+  margin-bottom: 22rpx;
+}
+
+.block-title {
+  font-size: 27rpx;
+  color: #9BA1A8;
+  letter-spacing: 2rpx;
+  margin-bottom: 20rpx;
+}
+
+.block-text {
+  font-size: 29rpx;
+  line-height: 1.9;
+  color: #3A4048;
+  white-space: pre-line;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18rpx 0;
+  border-bottom: 1px solid #F2EDE6;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.row-label {
+  font-size: 28rpx;
+  color: #6B7278;
+}
+
+.row-value {
+  display: flex;
+  align-items: center;
+}
+
+.row-text {
+  font-size: 27rpx;
+  color: #2A2F35;
+}
+
+.row-tap {
+  opacity: 0.95;
+}
+
+.row-arrow {
+  margin-left: 10rpx;
+  font-size: 32rpx;
+  line-height: 1;
+  color: #C9C2B8;
+}
+
+.dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  margin-right: 12rpx;
+  background-color: #C9C2B8;
+}
+
+.dot-ok {
+  background-color: #3C9A5F;
+}
+
+.dot-fail {
+  background-color: #C0392B;
+}
+
+.dot-checking {
+  background-color: #D9A441;
+}
+
+/* ---------- 友情链接（关于页，数据来自网页端 /links.html） ---------- */
+.flink-group {
+  padding-bottom: 6rpx;
+}
+
+.flink-group:last-child {
+  padding-bottom: 0;
+}
+
+.flink-cat {
+  padding: 6rpx 0 10rpx;
+  font-size: 22rpx;
+  letter-spacing: 2rpx;
+  color: #B3AA9E;
+}
+
+.flink {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+}
+
+.flink + .flink {
+  border-top: 1px solid #F4F0EA;
+}
+
+.flink-hover {
+  opacity: 0.6;
+}
+
+.flink-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  flex: none;
+  background-color: #F4F0E9;
+}
+
+.flink-avatar-txt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #B08A5E;
+}
+
+.flink-info {
+  flex: 1;
+  min-width: 0;
+  margin-left: 20rpx;
+}
+
+.flink-name {
+  font-size: 28rpx;
+  line-height: 1.4;
+  color: #2A2F35;
+}
+
+.flink-desc {
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  line-height: 1.5;
+  color: #9BA1A8;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ---------- 友链网址弹窗 ---------- */
+.link-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56rpx;
+  background-color: rgba(24, 22, 20, 0.62);
+}
+
+.link-card {
+  width: 100%;
+  padding: 44rpx 40rpx 36rpx;
+  background-color: #FFFDFA;
+  border-radius: 28rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 24rpx 60rpx rgba(0, 0, 0, 0.22);
+}
+
+.link-card-logo {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background-color: #F4F0E9;
+}
+
+.link-card-name {
+  margin-top: 20rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #2B2B2B;
+  letter-spacing: 1rpx;
+}
+
+.link-card-url {
+  width: 100%;
+  margin-top: 22rpx;
+  padding: 22rpx 26rpx;
+  background-color: #F4F1EC;
+  border-radius: 16rpx;
+  box-sizing: border-box;
+  font-size: 24rpx;
+  line-height: 1.6;
+  color: #5A5147;
+  text-align: center;
+  word-break: break-all;
+}
+
+.link-card-acts {
+  width: 100%;
+  display: flex;
+  gap: 20rpx;
+  margin-top: 30rpx;
+}
+
+.link-btn {
+  flex: 1;
+  min-width: 0;
+  height: 84rpx;
+  line-height: 84rpx;
+  text-align: center;
+  border-radius: 999rpx;
+  font-size: 27rpx;
+  letter-spacing: 1rpx;
+}
+
+.link-btn-solid {
+  background-color: #B54A34;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+.link-btn-ghost {
+  background-color: #FFFFFF;
+  color: #6E747B;
+  border: 1px solid #E5E2DD;
+}

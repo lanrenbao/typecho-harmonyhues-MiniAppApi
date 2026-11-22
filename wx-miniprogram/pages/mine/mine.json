@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "state-view": "/components/state-view/state-view"
+  },
+  "navigationBarTitleText": "我的",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}

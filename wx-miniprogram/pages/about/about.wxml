@@ -1,0 +1,140 @@
+<view class="head">
+  <view class="head-title serif">{{site.title || '我的博客'}}</view>
+  <view class="head-desc" wx:if="{{site.description}}">{{site.description}}</view>
+</view>
+
+<view class="wrap">
+  <!-- 一言卡片（插件开关开启时替换统计卡） -->
+  <view class="card hito" wx:if="{{features.hitokoto}}" bindtap="refreshHitokoto">
+    <view class="hito-head">
+      <view class="hito-greet">{{greeting}}</view>
+      <view class="hito-date">
+        <text class="hito-day">{{day}}</text>
+        <text class="hito-mon">/{{month}}</text>
+      </view>
+    </view>
+    <image class="hito-img" wx:if="{{hitokotoImage}}" src="{{hitokotoImage}}" mode="aspectFill" lazy-load />
+    <view class="hito-body">
+      <view class="hito-quote">
+        <text wx:if="{{hitokotoLoading}}">正在取一句…</text>
+        <text wx:else>{{hitokoto.text}}</text>
+      </view>
+      <view class="hito-from" wx:if="{{hitokoto.fromWho || hitokoto.from}}">——{{hitokoto.fromWho}}{{hitokoto.from ? '《' + hitokoto.from + '》' : ''}}</view>
+      <view class="hito-tip">轻触换一句</view>
+    </view>
+  </view>
+
+  <!-- 数据（一言卡片关闭时显示） -->
+  <view class="stats card" wx:if="{{!features.hitokoto}}">
+    <view class="stat">
+      <view class="stat-num">{{postCountText || 0}}</view>
+      <view class="stat-label">篇文章</view>
+    </view>
+    <view class="stat-line"></view>
+    <view class="stat">
+      <view class="stat-num">{{catCount}}</view>
+      <view class="stat-label">个分类</view>
+    </view>
+  </view>
+
+  <!-- 关于 -->
+  <view class="card block" wx:if="{{aboutText}}">
+    <view class="block-title">关于本站</view>
+    <text class="block-text">{{aboutText}}</text>
+  </view>
+
+  <!-- 归档（插件开关开启时替换「接口状态」） -->
+  <view class="card block" wx:if="{{features.archive}}" bindtap="goArchive">
+    <view class="block-title">归档</view>
+    <view class="row row-tap">
+      <text class="row-label">全部文章</text>
+      <view class="row-value">
+        <text class="row-text">{{postCountText}} 篇</text>
+        <text class="row-arrow">›</text>
+      </view>
+    </view>
+    <view class="row row-tap">
+      <text class="row-label">站点统计</text>
+      <view class="row-value">
+        <text class="row-text">封面 · 统计 · 按月归档</text>
+        <text class="row-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 接口状态（插件未开启归档时显示） -->
+  <view class="card block" wx:if="{{!features.archive}}">
+    <view class="block-title">接口状态</view>
+    <view class="row">
+      <text class="row-label">连接</text>
+      <view class="row-value">
+        <view class="dot dot-{{health.state}}"></view>
+        <text class="row-text">{{health.text}}</text>
+      </view>
+    </view>
+    <block wx:if="{{health.state === 'ok'}}">
+      <view class="row">
+        <text class="row-label">响应</text>
+        <text class="row-text">{{health.ms}} ms</text>
+      </view>
+      <view class="row">
+        <text class="row-label">Typecho</text>
+        <text class="row-text">{{health.typecho}}</text>
+      </view>
+      <view class="row">
+        <text class="row-label">PHP</text>
+        <text class="row-text">{{health.php}}</text>
+      </view>
+      <view class="row">
+        <text class="row-label">插件</text>
+        <text class="row-text">MiniAppApi {{health.plugin}}</text>
+      </view>
+    </block>
+    <view class="row row-tap" wx:if="{{health.state === 'fail'}}" bindtap="checkHealth">
+      <text class="row-label">重试</text>
+      <text class="row-text t-accent">点击重新检测</text>
+    </view>
+  </view>
+
+  <!-- 友情链接（插件开关控制，数据来自网页端 /links.html） -->
+  <view class="card block" wx:if="{{features.links && groups.length}}">
+    <view class="block-title">友情链接</view>
+    <view class="flink-group" wx:for="{{groups}}" wx:key="name" wx:for-item="g">
+      <view class="flink-cat">{{g.name}}</view>
+      <view
+        class="flink"
+        wx:for="{{g.items}}"
+        wx:key="url"
+        wx:for-item="it"
+        data-url="{{it.url}}"
+        data-name="{{it.name}}"
+        data-desc="{{it.desc}}"
+        data-avatar="{{it.avatar}}"
+        bindtap="onOpenLink"
+        hover-class="flink-hover"
+      >
+        <image class="flink-avatar" wx:if="{{it.avatar}}" src="{{it.avatar}}" mode="aspectFill" lazy-load />
+        <view class="flink-avatar flink-avatar-txt" wx:else>{{it.initial}}</view>
+        <view class="flink-info">
+          <view class="flink-name">{{it.name}}</view>
+          <view class="flink-desc" wx:if="{{it.desc}}">{{it.desc}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="foot-tip">Typecho × MiniAppApi · 客户端 v{{version}}</view>
+</view>
+
+<!-- 友链网址弹窗 -->
+<view class="link-mask" wx:if="{{linkShow}}" bindtap="onCloseLink">
+  <view class="link-card" catchtap="noop">
+    <image class="link-card-logo" wx:if="{{link.avatar}}" src="{{link.avatar}}" mode="aspectFill" />
+    <view class="link-card-name">{{link.name}}</view>
+    <view class="link-card-url">{{link.url}}</view>
+    <view class="link-card-acts">
+      <view class="link-btn link-btn-solid" bindtap="onCopyLinkUrl">复制网址</view>
+      <view class="link-btn link-btn-ghost" bindtap="onCloseLink">关闭</view>
+    </view>
+  </view>
+</view>

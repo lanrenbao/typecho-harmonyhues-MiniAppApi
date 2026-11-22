@@ -1,0 +1,97 @@
+<!-- 未登录：登录表单 -->
+<view class="login-wrap" wx:if="{{!loading && !session}}">
+  <view class="login-card">
+    <image class="login-logo" src="/assets/logo.png" mode="aspectFit" />
+    <view class="login-title serif">登录后同步你的阅读</view>
+    <view class="login-sub">收藏文章与浏览记录保存在云端，换设备也能找回</view>
+
+    <view class="field">
+      <view class="field-label">邮箱地址</view>
+      <input class="ipt" type="text"
+             placeholder="name@example.com"
+             placeholder-class="ipt-ph"
+             placeholder-style="color:#A9AFB6"
+             value="{{email}}" bindinput="onEmailInput" />
+    </view>
+
+    <view class="field field-row">
+      <view class="code-col">
+        <view class="field-label">验证码</view>
+        <input class="ipt ipt-code" type="number"
+               placeholder="6 位数字"
+               placeholder-class="ipt-ph"
+               placeholder-style="color:#A9AFB6"
+               value="{{code}}" bindinput="onCodeInput" />
+      </view>
+      <view class="send-wrap">
+        <button class="send-btn {{sendCountdown > 0 ? 'is-disabled' : ''}}"
+                size="mini"
+                disabled="{{sending || sendCountdown > 0}}"
+                bindtap="onSendCode">
+          {{sendCountdown > 0 ? sendCountdown + 's' : (sending ? '发送中…' : '获取验证码')}}
+        </button>
+      </view>
+    </view>
+
+    <view class="login-error" wx:if="{{loginError}}">{{loginError}}</view>
+
+    <button class="login-btn" disabled="{{submitting}}" bindtap="onSubmit">
+      {{submitting ? '登录中…' : '登录 / 注册'}}
+    </button>
+    <view class="login-note">新邮箱验证通过后会自动注册</view>
+  </view>
+</view>
+
+<!-- 加载中 -->
+<state-view wx:elif="{{loading}}" type="skeleton" count="{{3}}" />
+
+<!-- 已登录 -->
+<block wx:else>
+  <view class="me-head">
+    <view class="me-avatar">{{avatarChar}}</view>
+    <view class="me-info">
+      <view class="me-name">{{session.user.name || '读者'}}</view>
+      <view class="me-mail">{{session.user.email || ''}}</view>
+    </view>
+    <view class="me-logout" bindtap="onLogout">退出</view>
+  </view>
+
+  <view class="seg">
+    <view class="seg-item {{tab === 'fav' ? 'is-on' : ''}}" data-tab="fav" bindtap="onTab">
+      收藏 <text class="seg-num">{{favorites.length}}</text>
+    </view>
+    <view class="seg-item {{tab === 'his' ? 'is-on' : ''}}" data-tab="his" bindtap="onTab">
+      浏览记录
+    </view>
+  </view>
+
+  <view class="list-wrap">
+    <view class="list-actions" wx:if="{{tab === 'his' && history.length}}">
+      <text class="clear-btn {{clearing ? 'is-disabled' : ''}}" bindtap="onClearHistory">清空记录</text>
+    </view>
+
+    <state-view wx:if="{{tab === 'fav' && favLoading}}" type="skeleton" count="{{2}}" />
+    <state-view wx:elif="{{tab === 'his' && historyLoading}}" type="skeleton" count="{{2}}" />
+
+    <state-view wx:elif="{{tab === 'fav' && !favLoading && !favorites.length}}"
+                type="empty" text="还没有收藏，去文章页点亮收藏吧" />
+    <state-view wx:elif="{{tab === 'his' && !historyLoading && !history.length}}"
+                type="empty" text="暂无浏览记录" />
+
+    <view wx:elif="{{listError}}" class="list-error">{{listError}}</view>
+
+    <block wx:else>
+      <view class="row" wx:for="{{tab === 'fav' ? favorites : history}}"
+            wx:key="id"
+            data-item="{{item}}" bindtap="onOpenPost">
+        <image wx:if="{{item.thumb}}" class="row-thumb" src="{{item.thumb}}" mode="aspectFill" lazy-load />
+        <view class="row-main">
+          <view class="row-title">{{item.title}}</view>
+          <view class="row-meta">{{item.whenText}}</view>
+        </view>
+        <view wx:if="{{tab === 'fav'}}" class="row-del"
+              data-item="{{item}}" catchtap="onToggleFav">✕</view>
+      </view>
+    </block>
+  </view>
+</block>

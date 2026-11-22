@@ -1,0 +1,40 @@
+<!-- 分类胶囊 -->
+<scroll-view class="cats" scroll-x enable-flex show-scrollbar="{{false}}">
+  <view
+    wx:for="{{cats}}"
+    wx:key="mid"
+    class="cat {{item.mid === activeMid ? 'cat-on' : ''}}"
+    data-mid="{{item.mid}}"
+    data-name="{{item.name}}"
+    bindtap="switchCat"
+  >
+    <text class="cat-name">{{item.name}}</text>
+    <text class="cat-count">{{item.count}}</text>
+  </view>
+</scroll-view>
+
+<!-- 分类封面（插件开关开启且取到图时显示） -->
+<view class="cat-cover" wx:if="{{categoryCover}}">
+  <image class="cat-cover-img" src="{{categoryCover}}" mode="aspectFill" lazy-load />
+  <view class="cat-cover-mask"></view>
+  <view class="cat-cover-name">{{activeName}} · 共{{total}}篇</view>
+</view>
+
+<!-- 当前分类下的篇数（无封面时用文字行） -->
+<view class="cat-head" wx:if="{{!categoryCover && firstLoaded && !error}}">
+  <text class="cat-head-name">{{activeName}}</text>
+  <text class="cat-head-num">{{total}} 篇</text>
+</view>
+
+<!-- 状态 -->
+<state-view wx:if="{{!firstLoaded && loading}}" type="skeleton" count="{{2}}" />
+<state-view wx:elif="{{error && !posts.length}}" type="error" text="{{error}}" bind:retry="reload" />
+<state-view wx:elif="{{firstLoaded && !posts.length}}" type="empty" text="这个分类下还没有文章" />
+
+<block wx:else>
+  <view class="list">
+    <post-card wx:for="{{posts}}" wx:key="cid" item="{{item}}" bind:tapcard="goDetail" />
+  </view>
+  <view class="foot-tip" wx:if="{{loading}}">正在加载…</view>
+  <view class="foot-tip" wx:elif="{{!hasMore && posts.length}}">— 到底了 —</view>
+</block>

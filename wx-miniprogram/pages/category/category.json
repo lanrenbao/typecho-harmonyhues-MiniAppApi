@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "post-card": "/components/post-card/post-card",
+    "state-view": "/components/state-view/state-view"
+  },
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "onReachBottomDistance": 80,
+  "navigationBarTitleText": "分类"
+}
